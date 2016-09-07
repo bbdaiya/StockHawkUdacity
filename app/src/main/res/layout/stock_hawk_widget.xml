@@ -4,14 +4,16 @@
     xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/stock_widget"
     android:orientation="vertical"
     android:background="@android:color/background_dark"
     >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
         android:text="@string/app_name"
-        android:textSize="25dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:background="@color/material_blue_500"
         android:textColor="@android:color/white"
 

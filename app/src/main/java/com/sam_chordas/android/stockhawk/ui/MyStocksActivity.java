@@ -15,10 +15,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
@@ -64,6 +66,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     isConnected = activeNetwork != null &&
         activeNetwork.isConnectedOrConnecting();
     setContentView(R.layout.activity_my_stocks);
+    TextView error_textview = (TextView)findViewById(R.id.network_error);
     // The intent service is for executing immediate pulls from the Yahoo API
     // GCMTaskService can only schedule tasks, they cannot execute immediately
     mServiceIntent = new Intent(this, StockIntentService.class);
@@ -71,8 +74,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
       // Run the initialize task service so that some stocks appear upon an empty database
       mServiceIntent.putExtra("tag", "init");
       if (isConnected){
+        error_textview.setVisibility(View.GONE);
         startService(mServiceIntent);
       } else{
+        error_textview.setVisibility(View.VISIBLE);
         networkToast();
       }
     }
@@ -86,7 +91,14 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
               @Override public void onItemClick(View v, int position) {
                 //TODO:
                 // do something on item click
-                networkToast();
+                if(isConnected){
+                  Intent intent = new Intent(mContext, DetailActivity.class);
+                  mCursor.moveToPosition(position);
+                  intent.putExtra("ticker", mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)).toUpperCase());
+                  startActivity(intent);
+                }
+                else
+                  networkToast();
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
@@ -119,6 +131,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     mServiceIntent.putExtra("tag", "add");
                     mServiceIntent.putExtra("symbol", input.toString());
                     startService(mServiceIntent);
+
                   }
                 }
               })

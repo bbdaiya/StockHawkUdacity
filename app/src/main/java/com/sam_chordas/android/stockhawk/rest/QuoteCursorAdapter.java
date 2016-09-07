@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
   @Override
   public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor){
+    Log.v(QuoteCursorAdapter.class.getSimpleName(), "Cursor : "+cursor.getCount());
     viewHolder.symbol.setText(cursor.getString(cursor.getColumnIndex("symbol")));
     viewHolder.bidPrice.setText(cursor.getString(cursor.getColumnIndex("bid_price")));
     int sdk = Build.VERSION.SDK_INT;

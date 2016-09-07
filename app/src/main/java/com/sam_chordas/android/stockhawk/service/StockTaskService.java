@@ -68,6 +68,7 @@ public class StockTaskService extends GcmTaskService{
       initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
           new String[] { "Distinct " + QuoteColumns.SYMBOL }, null,
           null, null);
+      Log.v(LOG_TAG, "cursor count in Stock task Service: "+initQueryCursor.getCount());
       if (initQueryCursor.getCount() == 0 || initQueryCursor == null){
         // Init task. Populates DB with quotes for the symbols seen below
         try {

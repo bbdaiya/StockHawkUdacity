@@ -10,6 +10,8 @@
     <string name="input_hint">FB</string>
     <string name="input_prefill"></string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+    <string name="no_network">No network connection</string>
+    <string name="fab_button">Search symbol button</string>
     <string name="symbol_toast">Symbol does not exists!</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
